@@ -1,0 +1,9 @@
+LIBRARY BOOK RECORDS
+
+Title: Untitled | Author: Unknown | Copies: 0
+Title: C++ Programming | Author: Donated | Copies: 1
+Title: Data Structures | Author: Unknown | Copies: 5
+Title: Artificial Intelligence | Author: Stuart Russell | Copies: 8
+
+Testing negative copies:
+Error: Number of copies cannot be negative
