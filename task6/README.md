@@ -1,1 +1,96 @@
 
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Text {
+private:
+    char* data;
+
+public:
+    // Constructor
+    Text(const char* str = "") {
+        data = new char[strlen(str) + 1];
+        strcpy(data, str);
+    }
+
+    // Copy constructor
+    Text(const Text& t) {
+        data = new char[strlen(t.data) + 1];
+        strcpy(data, t.data);
+    }
+
+    // Copy assignment
+    Text& operator=(const Text& t) {
+        if (this != &t) {
+            char* temp = new char[strlen(t.data) + 1];
+            strcpy(temp, t.data);
+
+            delete[] data;
+            data = temp;
+        }
+
+        return *this;
+    }
+
+    // Concatenation operator
+    Text operator+(const Text& t) const {
+        int size = strlen(data) + strlen(t.data) + 1;
+
+        char* temp = new char[size];
+
+        strcpy(temp, data);
+        strcat(temp, t.data);
+
+        Text result(temp);
+
+        delete[] temp;
+
+        return result;
+    }
+
+    // Equality operator
+    bool operator==(const Text& t) const {
+        return strcmp(data, t.data) == 0;
+    }
+
+    // Not equal operator
+    bool operator!=(const Text& t) const {
+        return !(*this == t);
+    }
+
+    // Output operator
+    friend ostream& operator<<(ostream& out, const Text& t) {
+        out << t.data;
+        return out;
+    }
+
+    // Destructor
+    ~Text() {
+        delete[] data;
+    }
+};
+
+int main() {
+    Text a("Hello");
+    Text b(" World");
+
+    Text c = a + b;
+
+    cout << "Text 1: " << a << endl;
+    cout << "Text 2: " << b << endl;
+    cout << "Combined: " << c << endl;
+
+    Text d("Hello");
+
+    cout << boolalpha;
+    cout << "Equal: " << (a == d) << endl;
+    cout << "Not Equal: " << (a != b) << endl;
+
+    a = a;
+
+    cout << "Self assignment: " << a << endl;
+
+    return 0;
+}
+
